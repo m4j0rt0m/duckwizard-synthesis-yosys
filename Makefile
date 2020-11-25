@@ -1,5 +1,4 @@
 ###################################################################
-# Project:                                                        #
 # Description:      RTL Synthesis with Yosys - Makefile           #
 #                                                                 #
 # Template written by Abraham J. Ruiz R.                          #
@@ -7,6 +6,8 @@
 ###################################################################
 
 SHELL                := /bin/bash
+REMOTE-URL-SSH       := git@github.com:m4j0rt0m/rtl-develop-template-synthesis-yosys.git
+REMOTE-URL-HTTPS     := https://github.com/m4j0rt0m/rtl-develop-template-synthesis-yosys.git
 
 MKFILE_PATH           = $(abspath $(firstword $(MAKEFILE_LIST)))
 TOP_DIR               = $(shell dirname $(MKFILE_PATH))
@@ -59,7 +60,12 @@ rtl-synth: print-rtl-srcs $(RPT_OBJ)
 
 #H# veritedium      : Run veritedium AUTO features
 veritedium:
+	@echo "Running Veritedium Autocomplete..."
 	@$(foreach SRC,$(VERILOG_SRC),$(call veritedium-command,$(SRC)))
+	@echo "Deleting unnecessary backup files (*~ or *.bak)..."
+	find ./* -name "*~" -delete
+	find ./* -name "*.bak" -delete
+	@echo "Finished!"
 
 %.blif: $(RTL_OBJS)
 	$(MAKE) veritedium

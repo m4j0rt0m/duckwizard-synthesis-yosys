@@ -1,1 +1,1 @@
-# RTL Synthesis with Yosys (Template)
+# duckWizard: Synthesis with Yosys
